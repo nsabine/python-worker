@@ -3,6 +3,8 @@
 import time
 import rediswq
 
+print("Staring worker")
+
 host="redis"
 # Uncomment next two lines if you do not have Kube-DNS working.
 # import os
