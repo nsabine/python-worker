@@ -13,8 +13,8 @@ password=os.environ['REDIS_PASSWORD']
 
 r = redis.Redis(host=host, password=password)
 for x in range(100):
-  print("Injecting Job: " + x)
+  print("Injecting Job: " + str(x))
   sys.stdout.flush()
-  r.rpush("job", x)
+  r.rpush("job", str(x))
 print("Injector complete, exiting")
 sys.stdout.flush()
