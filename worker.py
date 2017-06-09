@@ -4,15 +4,20 @@ import time
 import rediswq
 import os
 import sys
+import socket
 
-print("Staring worker")
+print("Starting worker")
 sys.stdout.flush()
 
 host="redis"
+ip=socket.gethostbyname(host)
 password=os.environ['REDIS_PASSWORD']
+
 # Uncomment next two lines if you do not have Kube-DNS working.
 # import os
 # host = os.getenv("REDIS_SERVICE_HOST")
+print("About to connect to Redis at host: " + host + ", and ip: " + ip)
+sys.stdout.flush()
 
 q = rediswq.RedisWQ(name="job", host=host, password=password)
 print("Worker with sessionID: " +  q.sessionID())
