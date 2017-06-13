@@ -13,7 +13,7 @@ token=tokenfile.read()
 url = 'https://' + host + ':' + port + '/oapi/v1'                                                                                                                                                                                              
 
 print("host: " + host)
-print("post: " + post)
+print("port: " + port)
 print("url: " + url)
 print("token: " + token)
 sys.stdout.flush()
