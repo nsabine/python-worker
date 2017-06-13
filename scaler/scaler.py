@@ -22,3 +22,9 @@ headers = {'Authorization': 'Bearer ' + token}
 r = requests.get(url, headers=headers, verify=False)
 print(r.text)
 sys.stdout.flush()
+
+
+url = 'https://' + host + ':' + port + '/oapi/v1/namespaces/' + namespace + '/deploymentconfigs/' + deploymentconfig + '/scale'
+headers = {'Authorization': 'Bearer ' + token}                                                                                                                                                                                         
+r = requests.get(url, headers=headers, verify=False)
+
