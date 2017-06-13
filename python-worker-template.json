@@ -4,7 +4,7 @@
     "metadata": {
         "name": "python-worker",
         "annotations": {
-            "description": "A scalable job execution demo, with a Redis queue, ScheduledJob injector, and a scalable set of python workers.",
+            "description": "A scalable job execution demo, with a Redis queue, CronJob injector, and a scalable set of python workers.",
             "iconClass": "icon-python",
             "tags": "instant-app,python,job,database,redis"
         }
@@ -373,8 +373,8 @@
             }
         },
         {
-            "kind": "ScheduledJob",
-            "apiVersion": "v1",
+            "kind": "CronJob",
+            "apiVersion": "batch/v2alpha1",
             "metadata": {
                 "name": "python-injector",
                 "creationTimestamp": null,
@@ -383,9 +383,9 @@
                 }
             },
             "spec": {
-                "concurrencyPolicy": "forbid",
-                "schedule": '*/2 * * * *',
-                "suspend": "true",
+                "concurrencyPolicy": "Forbid",
+                "schedule": "*/2 * * * *",
+                "suspend": true,
                 "jobTemplate": {
                     "spec": {
                         "completions": 1,
@@ -411,13 +411,15 @@
                                         ],
                                         "resources": {}
                                     }
-                                ]
+                                ],
+		                "restartPolicy": "OnFailure"
                             }
                         }
+                   }
+	        }
             },
             "status": {}
         },
-
 
 
 
@@ -566,10 +568,9 @@
                 }
             },
             "status": {}
-        },
-
-
+        }
     ],
+
     "parameters": [
         {
             "name": "SOURCE_REPOSITORY_URL",
