@@ -19,5 +19,6 @@ print("token: " + token)
 sys.stdout.flush()
                                                                                                                                                                                                                                        
 headers = {'Authorization': 'Bearer ' + token}                                                                                                                                                                                         
-print(requests.get(url, headers=headers, verify=False))
+r = requests.get(url, headers=headers, verify=False)
+print(r.text)
 sys.stdout.flush()
