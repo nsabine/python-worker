@@ -200,7 +200,7 @@
                     "git": {
                         "uri": "${SOURCE_REPOSITORY_URL}",
                         "ref": "${SOURCE_REPOSITORY_REF}"
-                    }
+                    },
                     "contextDir": "worker" 
                 },
                 "strategy": {
@@ -347,7 +347,7 @@
                     "git": {
                         "uri": "${SOURCE_REPOSITORY_URL}",
                         "ref": "${SOURCE_REPOSITORY_REF}"
-                    }
+                    },
                     "contextDir": "injector" 
                 },
                 "strategy": {
@@ -385,7 +385,7 @@
             "spec": {
                 "concurrencyPolicy": "forbid",
                 "schedule": '*/2 * * * *',
-                "suspend": "true"
+                "suspend": "true",
                 "jobTemplate": {
                     "spec": {
                         "completions": 1,
@@ -393,7 +393,7 @@
                         "template": {
                             "metadata" : {
                                 "creationTimestamp": null
-                            }
+                            },
                             "spec": {
                                 "containers": [
                                     {
