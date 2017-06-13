@@ -552,6 +552,14 @@
                                     {
                                         "name": "REDIS_PASSWORD",
                                         "value": "${REDIS_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "NAMESPACE",
+                                        "valueFrom": {
+					    "fieldRef": {
+					   	"fieldPath": "metadata.namespace"
+					    }
+					}
                                     }
                                 ],
                                 "resources": {}
