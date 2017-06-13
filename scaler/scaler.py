@@ -9,7 +9,7 @@ sys.stdout.flush()
 
                                                                                                                                                                                                                                        
                                                                                                                                                                                                                                        
-namespace=os.environ['NAMESPACE']                                                                                                                                                                                             
+namespace=os.environ['NAME_SPACE']                                                                                                                                                                                             
 host=os.environ['KUBERNETES_SERVICE_HOST']                                                                                                                                                                                             
 port=os.environ['KUBERNETES_SERVICE_PORT']                                                                                                                                                                                             
 tokenfile = open('/var/run/secrets/kubernetes.io/serviceaccount/token','r')                                                                                                                                                            
