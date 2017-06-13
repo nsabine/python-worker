@@ -201,6 +201,7 @@
                         "uri": "${SOURCE_REPOSITORY_URL}",
                         "ref": "${SOURCE_REPOSITORY_REF}"
                     }
+                    "contextDir": "worker" 
                 },
                 "strategy": {
                     "type": "Docker",
@@ -292,6 +293,282 @@
             },
             "status": {}
         },
+
+
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "python-injector",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "python-injector"
+                }
+            },
+            "spec": {},
+            "status": {
+                "dockerImageRepository": ""
+            }
+        },
+        {
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "python-injector",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "python-injector"
+                }
+            },
+            "spec": {
+                "triggers": [
+                    {
+                        "type": "GitHub",
+                        "github": {
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "Generic",
+                        "generic": {
+                            "secret": "${GENERIC_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "ImageChange",
+                        "imageChange": {}
+                    }
+                ],
+                "source": {
+                    "type": "Git",
+                    "git": {
+                        "uri": "${SOURCE_REPOSITORY_URL}",
+                        "ref": "${SOURCE_REPOSITORY_REF}"
+                    }
+                    "contextDir": "injector" 
+                },
+                "strategy": {
+                    "type": "Docker",
+                    "dockerStrategy": {
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "namespace": "openshift",
+                            "name": "python:3.4"
+                        }
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "python-injector:latest"
+                    }
+                },
+                "resources": {}
+            },
+            "status": {
+                "lastVersion": 0
+            }
+        },
+        {
+            "kind": "ScheduledJob",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "python-injector",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "python-injector"
+                }
+            },
+            "spec": {
+                "concurrencyPolicy": "forbid",
+                "schedule": '*/2 * * * *',
+                "suspend": "true"
+                "jobTemplate": {
+                    "spec": {
+                        "completions": 1,
+                        "parallelism": 1,
+                        "template": {
+                            "metadata" : {
+                                "creationTimestamp": null
+                            }
+                            "spec": {
+                                "containers": [
+                                    {
+                                        "name": "python-injector",
+                                        "image": "python-injector:latest",
+                                        "env": [
+                                            {
+                                                "name": "DATABASE_SERVICE_NAME",
+                                                "value": "${DATABASE_SERVICE_NAME}"
+                                            },
+                                            {
+                                                "name": "REDIS_PASSWORD",
+                                                "value": "${REDIS_PASSWORD}"
+                                            }
+                                        ],
+                                        "resources": {}
+                                    }
+                                ]
+                            }
+                        }
+            },
+            "status": {}
+        },
+
+
+
+
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "python-scaler",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "python-scaler"
+                }
+            },
+            "spec": {},
+            "status": {
+                "dockerImageRepository": ""
+            }
+        },
+        {
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "python-scaler",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "python-scaler"
+                }
+            },
+            "spec": {
+                "triggers": [
+                    {
+                        "type": "GitHub",
+                        "github": {
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "Generic",
+                        "generic": {
+                            "secret": "${GENERIC_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "ImageChange",
+                        "imageChange": {}
+                    }
+                ],
+                "source": {
+                    "type": "Git",
+                    "git": {
+                        "uri": "${SOURCE_REPOSITORY_URL}",
+                        "ref": "${SOURCE_REPOSITORY_REF}"
+                    },
+                    "contextDir": "scaler" 
+
+                },
+                "strategy": {
+                    "type": "Docker",
+                    "dockerStrategy": {
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "namespace": "openshift",
+                            "name": "python:3.4"
+                        }
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "python-scaler:latest"
+                    }
+                },
+                "resources": {}
+            },
+            "status": {
+                "lastVersion": 0
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "python-scaler",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "python-scaler"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "python-scaler"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "python-scaler:latest"
+                            }
+                        }
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "app": "python-scaler",
+                    "deploymentconfig": "python-scaler"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "python-scaler",
+                            "deploymentconfig": "python-scaler"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "python-scaler",
+                                "image": "python-scaler:latest",
+                                "env": [
+                                    {
+                                        "name": "DATABASE_SERVICE_NAME",
+                                        "value": "${DATABASE_SERVICE_NAME}"
+                                    },
+                                    {
+                                        "name": "REDIS_PASSWORD",
+                                        "value": "${REDIS_PASSWORD}"
+                                    }
+                                ],
+                                "resources": {}
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {}
+        },
+
+
     ],
     "parameters": [
         {
