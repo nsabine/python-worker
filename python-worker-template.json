@@ -92,13 +92,6 @@
                                         "protocol": "TCP"
                                     }
                                 ],
-                                "readinessProbe": {
-                                    "timeoutSeconds": 1,
-                                    "initialDelaySeconds": 5,
-                                    "exec": {
-                                        "command": [ "/bin/sh", "-i", "-c", "test \"$(redis-cli -h 127.0.0.1 -a $REDIS_PASSWORD ping)\" == \"PONG\""]
-                                    }
-                                },
                                 "livenessProbe": {
                                     "timeoutSeconds": 1,
                                         "initialDelaySeconds": 30,
