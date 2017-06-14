@@ -1,5 +1,6 @@
 import os
 import sys
+import requests
 from pprint import pprint
 
 print("Starting scaler")
