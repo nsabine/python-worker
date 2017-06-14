@@ -22,8 +22,8 @@
                     {
                         "name": "redis",
                         "protocol": "TCP",
-                        "port": 6389,
-                        "targetPort": 6389,
+                        "port": 6379,
+                        "targetPort": 6379,
                         "nodePort": 0
                     }
                 ],
@@ -88,7 +88,7 @@
                                 "image": "redis",
                                 "ports": [
                                     {
-                                        "containerPort": 6389,
+                                        "containerPort": 6379,
                                         "protocol": "TCP"
                                     }
                                 ],
@@ -100,7 +100,7 @@
                                         }
                                     },
                                 "env": [
-                                    
+
                                     {
                                         "name": "REDIS_PASSWORD",
                                         "value": "${REDIS_PASSWORD}"
@@ -194,7 +194,7 @@
                         "uri": "${SOURCE_REPOSITORY_URL}",
                         "ref": "${SOURCE_REPOSITORY_REF}"
                     },
-                    "contextDir": "worker" 
+                    "contextDir": "worker"
                 },
                 "strategy": {
                     "type": "Docker",
@@ -341,7 +341,7 @@
                         "uri": "${SOURCE_REPOSITORY_URL}",
                         "ref": "${SOURCE_REPOSITORY_REF}"
                     },
-                    "contextDir": "injector" 
+                    "contextDir": "injector"
                 },
                 "strategy": {
                     "type": "Docker",
@@ -469,7 +469,7 @@
                         "uri": "${SOURCE_REPOSITORY_URL}",
                         "ref": "${SOURCE_REPOSITORY_REF}"
                     },
-                    "contextDir": "scaler" 
+                    "contextDir": "scaler"
 
                 },
                 "strategy": {
