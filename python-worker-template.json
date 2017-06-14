@@ -377,8 +377,7 @@
             },
             "spec": {
                 "concurrencyPolicy": "Forbid",
-                "schedule": "*/2 * * * *",
-                "suspend": true,
+                "schedule": "* * * * *",
                 "jobTemplate": {
                     "spec": {
                         "completions": 1,
