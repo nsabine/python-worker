@@ -19,7 +19,8 @@ password=os.environ['REDIS_PASSWORD']
 print("About to connect to Redis at host: " + host + ", and ip: " + ip)
 sys.stdout.flush()
 
-q = rediswq.RedisWQ(name="job", host=host, password=password, socket_connect_timeout=10)
+# q = rediswq.RedisWQ(name="job", host=host, password=password, socket_connect_timeout=10)
+q = rediswq.RedisWQ(name="job", host=host, socket_connect_timeout=10)
 print("Worker with sessionID: " +  q.sessionID())
 print("Initial queue state: empty=" + str(q.empty()))
 sys.stdout.flush()

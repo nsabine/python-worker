@@ -11,7 +11,8 @@ sys.stdout.flush()
 host="redis"
 password=os.environ['REDIS_PASSWORD']
 
-r = redis.Redis(host=host, password=password, socket_connect_timeout=5)
+# r = redis.Redis(host=host, password=password, socket_connect_timeout=5)
+r = redis.Redis(host=host, socket_connect_timeout=5)
 for x in range(100):
   print("Injecting Job: " + str(x))
   sys.stdout.flush()
