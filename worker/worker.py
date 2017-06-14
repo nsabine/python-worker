@@ -19,13 +19,13 @@ password=os.environ['REDIS_PASSWORD']
 print("About to connect to Redis at host: " + host + ", and ip: " + ip)
 sys.stdout.flush()
 
-q = rediswq.RedisWQ(name="job", host=host, password=password)
+q = rediswq.RedisWQ(name="job", host=host, password=password, connect_timeout=10)
 print("Worker with sessionID: " +  q.sessionID())
 print("Initial queue state: empty=" + str(q.empty()))
 sys.stdout.flush()
 
 while not q.empty():
-  item = q.lease(lease_secs=10, block=True, timeout=2) 
+  item = q.lease(lease_secs=10, block=True, timeout=2)
   if item is not None:
     itemstr = item.decode("utf=8")
     print("Working on " + itemstr)
