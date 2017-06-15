@@ -11,6 +11,14 @@
     },
     "objects": [
         {
+          "apiVersion": "v1",
+          "kind": "ServiceAccount",
+          "metadata": {
+            "name": "scaler-sa"
+          }
+        },
+
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "metadata": {
@@ -376,7 +384,8 @@
                 }
             },
             "spec": {
-                "concurrencyPolicy": "Forbid",
+                "concurrencyPolicy": "Replace",
+                "startingDeadlineSeconds": 30,
                 "schedule": "* * * * *",
                 "jobTemplate": {
                     "spec": {
@@ -404,7 +413,7 @@
                                         "resources": {}
                                     }
                                 ],
-		                "restartPolicy": "OnFailure"
+		                "restartPolicy": "Never"
                             }
                         }
                    }
