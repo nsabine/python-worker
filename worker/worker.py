@@ -31,7 +31,7 @@ while not q.empty():
     itemstr = item.decode("utf=8")
     print("Working on " + itemstr)
     sys.stdout.flush()
-    time.sleep(10) # Put your actual work here instead of sleep.
+    time.sleep(1) # Put your actual work here instead of sleep.
     q.complete(item)
   else:
     print("Waiting for work")

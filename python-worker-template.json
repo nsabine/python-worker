@@ -294,23 +294,6 @@
             },
             "status": {}
         },
-
-
-        {
-            "kind": "ImageStream",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "python-injector",
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "python-injector"
-                }
-            },
-            "spec": {},
-            "status": {
-                "dockerImageRepository": ""
-            }
-        },
         {
             "kind": "BuildConfig",
             "apiVersion": "v1",
@@ -363,8 +346,8 @@
                 },
                 "output": {
                     "to": {
-                        "kind": "ImageStreamTag",
-                        "name": "python-injector:latest"
+                        "kind": "DockerImage",
+                        "name": "docker-registry-default.apps.vrtx.rhtps.io/jobs/python-scaler:latest"
                     }
                 },
                 "resources": {}
@@ -399,7 +382,7 @@
                                 "containers": [
                                     {
                                         "name": "python-injector",
-                                        "image": "python-injector:latest",
+                                        "image": "quay.io/nsabine/python-injector",
                                         "env": [
                                             {
                                                 "name": "DATABASE_SERVICE_NAME",
