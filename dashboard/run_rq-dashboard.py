@@ -8,7 +8,7 @@ import os
 
 app = Flask(__name__)
 app.config.from_object(rq_dashboard.default_settings)
-app.register_blueprint(rq_dashboard.blueprint, url_prefix="/rq")
+app.register_blueprint(rq_dashboard.blueprint, url_prefix="/")
 
 app.config['REDIS_HOST'] = os.environ['DATABASE_SERVICE_NAME']
 app.config['REDIS_PASSWORD'] = os.environ['REDIS_PASSWORD']
