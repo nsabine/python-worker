@@ -1,0 +1,25 @@
+#!/bin/bash
+set -x
+set -eo pipefail
+
+# Invoke original assemble script to install packages.
+/usr/libexec/s2i/assemble
+
+# Make sure the input src directory is removed as the default S2I Python
+# builder script doesn't do it and if this isn't done it can interfere
+# with layered S2I builds where files had been explicitly removed from
+# the target src directory.
+rm -rf /tmp/src
+
+# Remove the list of packages so that only the users version of the file
+# will be used for subsequent invocations of the resulting image as an
+# S2I builder.
+rm -f /opt/app-root/src/requirements.txt
+
+# Move the startup scripts out of the src directory so they don't
+# interfere with any user supplied files. The APP_FILE environment is
+# set via the .s2i/environment file so that the startup script is found
+# in its new location.
+mv /opt/app-root/src/run_rq-dashboard.py /opt/app-root/run_rq-dashboard.py
+mv /opt/app-root/src/run_rq-dashboard.sh /opt/app-root/run_rq-dashboard.sh
+
