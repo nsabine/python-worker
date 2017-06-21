@@ -716,7 +716,7 @@
                                 ],
                                 "ports": [
                                   {
-                                    "containerPort": 5000,
+                                    "containerPort": 9181,
                                     "protocol": "TCP"
                                   }
                                 ],
@@ -741,10 +741,10 @@
           "spec": {
             "ports": [
               {
-                "name": "5000-tcp",
+                "name": "9181-tcp",
                 "protocol": "TCP",
-                "port": 5000,
-                "targetPort": 5000
+                "port": 9181,
+                "targetPort": 9181
               }
             ],
             "selector": {
