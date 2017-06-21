@@ -626,8 +626,8 @@
 
                 },
                 "strategy": {
-                    "type": "Docker",
-                    "dockerStrategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "openshift",
@@ -681,7 +681,6 @@
                 ],
                 "replicas": 1,
                 "selector": {
-                    "app": "dashboard",
                     "deploymentconfig": "dashboard"
                 },
                 "template": {
@@ -709,11 +708,17 @@
                                     {
                                         "name": "NAME_SPACE",
                                         "valueFrom": {
-					    "fieldRef": {
-					   	"fieldPath": "metadata.namespace"
-					    }
-					}
+					                                "fieldRef": {
+					   	                              "fieldPath": "metadata.namespace"
+					                                }
+					                              }
                                     }
+                                ],
+                                "ports": [
+                                  {
+                                    "containerPort": 8080,
+                                    "protocol": "TCP"
+                                  }
                                 ],
                                 "resources": {}
                             }
@@ -722,6 +727,54 @@
                 }
             },
             "status": {}
+        },
+        {
+          "kind": "Service",
+          "apiVersion": "v1",
+          "metadata": {
+              "name": "dashboard",
+              "creationTimestamp": null,
+              "labels": {
+                  "app": "dashboard"
+              }
+          },
+          "spec": {
+            "ports": [
+              {
+                "name": "8080-tcp",
+                "protocol": "TCP",
+                "port": 8080,
+                "targetPort": 8080
+              }
+            ],
+            "selector": {
+              "deploymentconfig": "dashboard"
+            }
+          },
+          "status": {}
+        },
+        {
+          "kind": "Route",
+          "apiVersion": "v1",
+          "metadata": {
+              "name": "dashboard",
+              "creationTimestamp": null,
+              "labels": {
+                  "app": "dashboard"
+              }
+          },
+          "spec": {
+            "to": {
+              "kind": "Service",
+              "name": "dashboard"
+            },
+            "tls": {
+              "termination": "edge",
+              "insecureEdgeTerminationPolicy": "Allow"
+            }
+          },
+          "status": {}
+
         }
     ],
 
