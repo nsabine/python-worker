@@ -1,7 +1,7 @@
 import os
 import redis
 #from redis import StrictRedis
-from rq import Connection, Worker
+from rq import Connection, Queue
 
 # use the kubernetes service environment variables to
 #  connect to the redis queue
