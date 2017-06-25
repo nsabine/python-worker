@@ -23,7 +23,7 @@ def add_jobs():
   redis_connection = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD)
   q = Queue(connection=redis_connection)
   for i in range(1,100):
-  job = q.enqueue(do_work, result_ttl=60000)
+    job = q.enqueue(do_work, result_ttl=60000)
 
 if __name__ == '__main__':
   add_jobs()
