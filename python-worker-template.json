@@ -153,10 +153,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "python-worker",
+                "name": "python-worker-rq",
                 "creationTimestamp": null,
                 "labels": {
-                    "app": "python-worker"
+                    "app": "python-worker-rq"
                 }
             },
             "spec": {},
@@ -168,10 +168,10 @@
             "kind": "BuildConfig",
             "apiVersion": "v1",
             "metadata": {
-                "name": "python-worker",
+                "name": "python-worker-rq",
                 "creationTimestamp": null,
                 "labels": {
-                    "app": "python-worker"
+                    "app": "python-worker-rq"
                 }
             },
             "spec": {
@@ -205,8 +205,8 @@
                     "contextDir": "worker"
                 },
                 "strategy": {
-                    "type": "Docker",
-                    "dockerStrategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "openshift",
@@ -217,7 +217,7 @@
                 "output": {
                     "to": {
                         "kind": "ImageStreamTag",
-                        "name": "python-worker:latest"
+                        "name": "python-worker-rq:latest"
                     }
                 },
                 "resources": {}
@@ -230,10 +230,10 @@
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
-                "name": "python-worker",
+                "name": "python-worker-rq",
                 "creationTimestamp": null,
                 "labels": {
-                    "app": "python-worker"
+                    "app": "python-worker-rq"
                 }
             },
             "spec": {
@@ -249,33 +249,33 @@
                         "imageChangeParams": {
                             "automatic": true,
                             "containerNames": [
-                                "python-worker"
+                                "python-worker-rq"
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "python-worker:latest"
+                                "name": "python-worker-rq:latest"
                             }
                         }
                     }
                 ],
                 "replicas": 1,
                 "selector": {
-                    "app": "python-worker",
-                    "deploymentconfig": "python-worker"
+                    "app": "python-worker-rq",
+                    "deploymentconfig": "python-worker-rq"
                 },
                 "template": {
                     "metadata": {
                         "creationTimestamp": null,
                         "labels": {
-                            "app": "python-worker",
-                            "deploymentconfig": "python-worker"
+                            "app": "python-worker-rq",
+                            "deploymentconfig": "python-worker-rq"
                         }
                     },
                     "spec": {
                         "containers": [
                             {
-                                "name": "python-worker",
-                                "image": "python-worker:latest",
+                                "name": "python-worker-rq",
+                                "image": "python-worker-rq:latest",
                                 "env": [
                                     {
                                         "name": "DATABASE_SERVICE_NAME",
