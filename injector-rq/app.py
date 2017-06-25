@@ -2,6 +2,7 @@ import os
 import redis
 #from redis import StrictRedis
 from rq import Connection, Queue
+import work
 
 # use the kubernetes service environment variables to
 #  connect to the redis queue
@@ -14,9 +15,6 @@ REDIS_PASSWORD = os.environ['REDIS_PASSWORD']
 QUEUES = ['default']
 
 #connection=StrictRedis(host=REDIS_HOST, port=REDIS_PORT)
-
-def do_work():
-  time.sleep(1) # Put your actual work here instead of sleep.
 
 def add_jobs():
   #redis_connection = redis.from_url(REDIS_URL)
