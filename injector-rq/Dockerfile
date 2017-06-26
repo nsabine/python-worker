@@ -4,5 +4,6 @@ FROM registry.access.redhat.com/rhscl/python-34-rhel7
 COPY ./requirements.txt /opt/app-root/src/requirements.txt
 RUN LD_LIBRARY_PATH=/opt/rh/rh-python34/root/usr/lib64:/opt/rh/httpd24/root/usr/lib64 pip install -r requirements.txt
 COPY ./app.py /opt/app-root/src/app.py
+COPY ./work.py /opt/app-root/src/work.py
 
 CMD  python app.py
