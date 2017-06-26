@@ -15,7 +15,7 @@ app.config['REDIS_PASSWORD'] = os.environ['REDIS_PASSWORD']
 
 @app.route("/")
 def root():
-    redirect("/rq")
+    return "<html><body><a href='/rq'>Dashboard</a></body></html>"
 
 @app.route("/hello")
 def hello():
