@@ -1,7 +1,7 @@
 #import os
 #os.execl('/opt/app-root/run_rq-dashboard.sh', 'rq-dashboard')
 
-from flask import Flask, redirect
+from flask import Flask, redirect, render_template
 import rq_dashboard
 import os
 
@@ -15,7 +15,7 @@ app.config['REDIS_PASSWORD'] = os.environ['REDIS_PASSWORD']
 
 @app.route("/")
 def root():
-    return "<html><body><a href='/rq'>Dashboard</a></body></html>"
+    return render_template("index.html")
 
 @app.route("/hello")
 def hello():
