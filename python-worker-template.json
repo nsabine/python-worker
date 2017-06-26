@@ -368,8 +368,8 @@
             },
             "spec": {
                 "concurrencyPolicy": "Replace",
-                "startingDeadlineSeconds": 30,
-                "schedule": "* * * * *",
+                "startingDeadlineSeconds": 60,
+                "schedule": "*/5 * * * *",
                 "jobTemplate": {
                     "spec": {
                         "completions": 1,
@@ -517,7 +517,7 @@
                         }
                     }
                 ],
-                "replicas": 1,
+                "replicas": 0,
                 "selector": {
                     "app": "python-scaler",
                     "deploymentconfig": "python-scaler"
@@ -767,6 +767,9 @@
             "to": {
               "kind": "Service",
               "name": "dashboard"
+            },
+            "port": {
+              "targetPort": "9181-tcp"
             },
             "tls": {
               "termination": "edge",
